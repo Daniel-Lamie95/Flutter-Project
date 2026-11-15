@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/login.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -68,7 +69,14 @@ class _RegisterState extends State<Register> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Login(),
+                            ),
+                          );
+                        },
                         child: const Text(
                           'Already have an Account?',
                           style: TextStyle(color: Colors.black),
