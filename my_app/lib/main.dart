@@ -41,7 +41,7 @@ class MyHomePage extends StatelessWidget {
           
           ElevatedButton(onPressed: () {
           Navigator.push(context,
-          MaterialPageRoute(builder: (context) => Register())
+          MaterialPageRoute(builder: (context) => StudentRegister())
           );},
            child: Text('go to other page')
           ),

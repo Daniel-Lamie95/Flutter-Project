@@ -71,15 +71,41 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Register(),
+                              builder: (context) => StudentRegister(),
                             ),
                           );
                         },
                         child: const Text(
-                          'Dont have an Account?',
+                          'Register As a Student',
                           style: TextStyle(color: Colors.black),
                         ),
                       ),
+                      /*const SizedBox(height: 25),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 28,
+                            vertical: 16,
+                          ),
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CompanyRegister(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Register As a Student',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),*/
                     ],
                   ),
                 ),

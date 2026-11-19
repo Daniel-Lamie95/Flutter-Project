@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/login.dart';
-
-class Register extends StatefulWidget {
-  const Register({super.key});
+  
+import 'package:my_app/studentDashboard.dart';
+class StudentRegister extends StatefulWidget {
+  const StudentRegister({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<StudentRegister> createState() => _StudentRegisterState();
 }
 
-class _RegisterState extends State<Register> {
+class _StudentRegisterState extends State<StudentRegister> {
   String selectedRole = 'Student';
 
   @override
@@ -78,16 +79,43 @@ class _RegisterState extends State<Register> {
                           );
                         },
                         child: const Text(
-                          'Already have an Account?',
+                          'Already have an account?',
                           style: TextStyle(color: Colors.black),
                         ),
                       ),
+
+                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 28,
+                            vertical: 16,
+                          ),
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => StudentDashboard(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'go to dashboard',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      
                     ],
                   ),
                 ),
               ),
               const SizedBox(width: 24),
-              Expanded(
+              Flexible(
                 flex: 2,
                 child: Align(
                   alignment: Alignment.centerRight,
@@ -119,16 +147,12 @@ class _RegisterState extends State<Register> {
                         const SizedBox(height: 12),
                         _inputField('Enter Password', obscureText: true),
                         const SizedBox(height: 16),
-                        const Text(
-                          'Select Role:',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                          ),
-                        ),
-                        _roleOption('Student'),
-                        _roleOption('Company'),
+                        
+                        _inputField('Enter Major'),
+                        const SizedBox(height: 20),
+                        _inputField('Enter Country'),
+        
+                        
                         const SizedBox(height: 10),
                         SizedBox(
                           width: double.infinity,
