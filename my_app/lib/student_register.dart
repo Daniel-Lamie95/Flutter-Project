@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/login.dart';
-  
 import 'package:my_app/studentDashboard.dart';
+
 class StudentRegister extends StatefulWidget {
   const StudentRegister({super.key});
 
@@ -11,6 +11,7 @@ class StudentRegister extends StatefulWidget {
 
 class _StudentRegisterState extends State<StudentRegister> {
   String selectedRole = 'Student';
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +74,7 @@ class _StudentRegisterState extends State<StudentRegister> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => Login(),
-                            ),
+                            MaterialPageRoute(builder: (context) => Login()),
                           );
                         },
                         child: const Text(
@@ -84,7 +83,7 @@ class _StudentRegisterState extends State<StudentRegister> {
                         ),
                       ),
 
-                       ElevatedButton(
+                      ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueAccent,
                           padding: const EdgeInsets.symmetric(
@@ -109,7 +108,6 @@ class _StudentRegisterState extends State<StudentRegister> {
                           style: TextStyle(color: Colors.black),
                         ),
                       ),
-                      
                     ],
                   ),
                 ),
@@ -126,63 +124,117 @@ class _StudentRegisterState extends State<StudentRegister> {
                       color: const Color(0xE6091028),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Center(
-                          child: Text(
-                            'Sign Up',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        _inputField('Enter Name'),
-                        const SizedBox(height: 12),
-                        _inputField('Enter Email'),
-                        const SizedBox(height: 12),
-                        _inputField('Enter Password', obscureText: true),
-                        const SizedBox(height: 16),
-                        
-                        _inputField('Enter Major'),
-                        const SizedBox(height: 20),
-                        _inputField('Enter Country'),
-        
-                        
-                        const SizedBox(height: 10),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blueAccent,
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                            ),
-                            child: const Text(
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Center(
+                            child: Text(
                               'Sign Up',
                               style: TextStyle(
-                                fontSize: 17,
+                                color: Colors.white,
+                                fontSize: 36,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        const Center(
-                          child: Text(
-                            'Already have an account? Login',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
+                          const SizedBox(height: 20),
+                          _inputField(
+                            'Enter Name',
+                            validator: (value) =>
+                                value == null || value.trim().isEmpty
+                                ? 'Name is required'
+                                : null,
+                          ),
+                          const SizedBox(height: 12),
+                          _inputField(
+                            'Enter Email',
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Email is required';
+                              }
+                              if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                  .hasMatch(value.trim())) {
+                                return 'Enter a valid email';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 12),
+                          _inputField(
+                            'Enter Password',
+                            obscureText: true,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Password is required';
+                              }
+                              if (value.length < 6) {
+                                return 'Password must be at least 6 characters';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 16),
+
+                          _inputField(
+                            'Enter Major',
+                            validator: (value) =>
+                                value == null || value.trim().isEmpty
+                                ? 'Major is required'
+                                : null,
+                          ),
+                          const SizedBox(height: 20),
+                          _inputField(
+                            'Enter Country',
+                            validator: (value) =>
+                                value == null || value.trim().isEmpty
+                                ? 'Country is required'
+                                : null,
+                          ),
+
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Sign up form is valid'),
+                                    ),
+                                  );
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blueAccent,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16,
+                                ),
+                              ),
+                              child: const Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 10),
+                          const Center(
+                            child: Text(
+                              'Already have an account? Login',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -194,9 +246,14 @@ class _StudentRegisterState extends State<StudentRegister> {
     );
   }
 
-  Widget _inputField(String hint, {bool obscureText = false}) {
-    return TextField(
+  Widget _inputField(
+    String hint, {
+    bool obscureText = false,
+    String? Function(String?)? validator,
+  }) {
+    return TextFormField(
       obscureText: obscureText,
+      validator: validator,
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(fontSize: 17),
@@ -228,13 +285,7 @@ class _StudentRegisterState extends State<StudentRegister> {
               });
             },
           ),
-          Text(
-            role,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 17,
-            ),
-          ),
+          Text(role, style: const TextStyle(color: Colors.white, fontSize: 17)),
         ],
       ),
     );
