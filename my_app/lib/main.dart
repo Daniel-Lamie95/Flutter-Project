@@ -30,15 +30,6 @@ class MyHomePage extends StatelessWidget {
       Column(
         children: [
 
-
-
-
-          
-
-
-
-
-          
           ElevatedButton(onPressed: () {
           Navigator.push(context,
           MaterialPageRoute(builder: (context) => Login())
